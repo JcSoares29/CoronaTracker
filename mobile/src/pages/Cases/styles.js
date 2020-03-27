@@ -4,40 +4,18 @@ import Constants from 'expo-constants'
 export default StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: Constants.statusBarHeight,
+        width: "100%",
+        alignItems: "center",
+        justifyContent: 'flex-start',
         backgroundColor: "#44475a",
     }, 
 
-    header: {
-        flex: 0,
-        flexDirection: 'row',
-        alignItems: "center",
-        justifyContent: "flex-start",        
-        backgroundColor: "#282a36",
-        borderBottomWidth: 5,
-        borderBottomColor: "#ff79c6"
-    },
-
-    headerText: {
-        marginLeft: 25,
-        color: "#FFF",
-        fontSize: 20,
-        fontWeight: 'bold'
-    },
-
-    menuButton: {
-        marginLeft: 15,
-    },
-
     search: {
-        flex: 0,
-        flexDirection: 'row',
-        justifyContent: "space-between",
-        alignItems: 'center',
+        width: "100%",
+        justifyContent: 'space-between',
         padding: 15,
     },
-
-
+    
     country: {
         height: 50,
         width: "100%",
@@ -47,17 +25,15 @@ export default StyleSheet.create({
     },
 
     countryOverlay: {
-
+        top: 50
     },
 
     submit: {
-        width: "20%",
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "#ff5555",
         height: 50,
         borderRadius: 5,
-        marginLeft: 10,
     },
 
     submitText: {
@@ -67,10 +43,9 @@ export default StyleSheet.create({
     },
 
     coronaInfo: {
+        width: "95%",
         padding: 24,
         borderRadius: 8,
-        marginBottom: 20,
-        marginHorizontal: 10,
         borderColor: "#FFF", 
         borderWidth: 2,
         backgroundColor: "#6272a4"

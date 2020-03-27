@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { View, TextInput, TouchableOpacity, Text } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
-
-import { DrawerActions } from '@react-navigation/native'
+import React, { useState } from 'react'
+import { View, Text } from 'react-native'
 
 import styles from  './styles'
+
+import Header from '../../../Header'
 
 import { Dropdown } from 'react-native-material-dropdown';
 
@@ -17,24 +16,27 @@ export default function Cases({ navigation }) {
     const [deaths, setDeaths] = useState('')
     const [recovered, setRecovered] = useState('')
     const [loading, setLoading] = useState(false)
+    const [enable, setEnable] = useState(false)
 
     const [listCountries, setListCountries] = useState([])
     
     async function getCountries() {
         if (loading) return
         setLoading(true)
+
+        const responseCountries = await apiCountryCodes.get('countries')
             
-        setListCountries(responseCountries.data.result.map(item => {
+        const lstCountries = responseCountries.data.result.map(item => {
             return {value: `${item.name} - ${item.code}`}
-        }).sort().filter())
+        }).sort()
+
+        setListCountries(lstCountries)
 
         setLoading(false)
     }
 
-    useEffect(() => {
-        getCountries()
-    }, [])
 
+    getCountries()
 
     async function handleCountry(country) {
         try {
@@ -53,26 +55,21 @@ export default function Cases({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
-                <TouchableOpacity 
-                    onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())} 
-                    style={styles.menuButton}
-                >
-                    <Ionicons name='ios-menu' size={45} color="#FFF" backgroundColor="transparent"/>
-                </TouchableOpacity>
-                <Text style={styles.headerText}>Corona Tracker</Text>        
-            </View>
+            <Header navigation={navigation}/>
 
             <View style={styles.search}>
                 <Dropdown 
                     pickerStyle={{borderBottomColor:'transparent',borderWidth: 0, height: "90%"}}
                     containerStyle={styles.country}
-                    overlayStyle={styles.countryOverlay}
                     dropdownPosition={0}
-                    onChangeText={text => {
-                        handleCountry(text.split(' - ')[1])
+                    onChangeText={async (text) => {
+                        setEnable(true)
+                        await handleCountry(text.split(' - ')[1])
+                        setEnable(false)
                     }} 
-                    dropdownOffset={{ top: 0 }}
+                    disabled={enable}
+                    rippleInsets={{top: 0, bottom: 0}}
+                    dropdownOffset={{ top: 0, left: 0 }}
                     data={listCountries}
                 />
             </View>
