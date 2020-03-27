@@ -33,20 +33,24 @@ export default StyleSheet.create({
         flex: 0,
         flexDirection: 'row',
         justifyContent: "space-between",
+        alignItems: 'center',
         padding: 15,
     },
 
+
     country: {
         height: 50,
-        color: "#282a36",
-        width: "70%",
+        width: "100%",
         backgroundColor: "#FFF",
         borderRadius: 5,
         padding: 5
     },
 
+    countryOverlay: {
+
+    },
+
     submit: {
-        flex: 1,
         width: "20%",
         alignItems: "center",
         justifyContent: "center",

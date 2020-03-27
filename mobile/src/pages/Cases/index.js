@@ -6,26 +6,48 @@ import { DrawerActions } from '@react-navigation/native'
 
 import styles from  './styles'
 
-import api from '../../services/api'
+import { Dropdown } from 'react-native-material-dropdown';
+
+import apiCorona from '../../services/apiCorona'
+
+import apiCountryCodes from '../../services/apiCountryCodes'
 
 export default function Cases({ navigation }) {
     const [confirmed, setConfirmed] = useState('')
     const [deaths, setDeaths] = useState('')
     const [recovered, setRecovered] = useState('')
+    const [loading, setLoading] = useState(false)
 
-    const [country, setCountry] = useState('')
+    const [listCountries, setListCountries] = useState([])
+    
+    async function getCountries() {
+        if (loading) return
+        setLoading(true)
+            
+        setListCountries(responseCountries.data.result.map(item => {
+            return {value: `${item.name} - ${item.code}`}
+        }).sort().filter())
+
+        setLoading(false)
+    }
+
+    useEffect(() => {
+        getCountries()
+    }, [])
 
 
-    async function handleCountry() {
+    async function handleCountry(country) {
         try {
             console.log(country)
-            const response = await api.get(`/locations?country=${country.toLowerCase()}`)
-            console.log(response)
+            const response = await apiCorona.get(`/locations?country_code=${country}`)
             setConfirmed(response.data.latest.confirmed)
             setDeaths(response.data.latest.deaths)
             setRecovered(response.data.latest.recovered)
         } catch (err) {
-            alert("Erro ao pesquisar informações. Verifique se o país digitado está correto")
+            alert("Erro ao pesquisar informações. O país selecionado pode não conter informações de corona vírus.")
+            setConfirmed("")
+            setDeaths("")
+            setRecovered("")
         }
     }
 
@@ -42,15 +64,17 @@ export default function Cases({ navigation }) {
             </View>
 
             <View style={styles.search}>
-                <TextInput 
-                    onChangeText={text => setCountry(text)} 
-                    placeholder="Digite o nome do país" 
-                    style={styles.country}
-                    value={country}
+                <Dropdown 
+                    pickerStyle={{borderBottomColor:'transparent',borderWidth: 0, height: "90%"}}
+                    containerStyle={styles.country}
+                    overlayStyle={styles.countryOverlay}
+                    dropdownPosition={0}
+                    onChangeText={text => {
+                        handleCountry(text.split(' - ')[1])
+                    }} 
+                    dropdownOffset={{ top: 0 }}
+                    data={listCountries}
                 />
-                <TouchableOpacity onPress={handleCountry} style={styles.submit}>
-                    <Text style={styles.submitText}>Obter</Text>
-                </TouchableOpacity>
             </View>
 
             <View style={styles.coronaInfo}>
