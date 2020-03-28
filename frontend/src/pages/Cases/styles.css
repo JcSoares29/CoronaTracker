@@ -1,13 +1,13 @@
 .cases-container {
-    display: inline-block;
     width: 100%;
-    height: 100%;
+    height: 1em;
     background-color: #44475a;
     margin: 0 auto;
 }
 
 .cases-container .cases-header {
     display: flex;
+    width: 100%;
     align-items: center;
     height: 60px;
     border-bottom: 2px solid #bd93f9;
@@ -53,11 +53,35 @@
     color: #333;
 }
 
+.countries-list {
+    position: absolute;
+    left: 10px;
+    top: 110px;
+    background-color: #FFF;
+    list-style: none;
+    border-radius: 10px;
+    width: 88%;
+}
+
+.countries-list li {
+    cursor: pointer;
+    padding: 10px;
+    font-size: 24;
+    transition: background-color 0.2s;
+}
+
+.countries-list li:hover {
+    background-color: gray;
+    color: #FFF;
+}
+
+
 
 .cases-container .info-corona-virus {
+    box-sizing: border-box;
     padding: 50px;
     margin: 50px;
-    height: 100%;
+    height: 300px;
     border-radius: 8px;
     box-shadow: 0 0 100px rgba(0, 0, 0, 1);;
     background-color: #6272a4;
@@ -68,12 +92,18 @@
     justify-content: space-between;
 }
 
+
+.cases-container .info-corona-virus p + p {
+    font-size: 24px;
+    color: #FFF;
+    margin-top: 20px;
+}
+
 .cases-container .info-corona-virus p {
     font-size: 24px;
     color: #FFF;
-    margin-bottom: 20px;
-
 }
+
 
 
 
