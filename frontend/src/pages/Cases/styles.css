@@ -1,7 +1,7 @@
 .cases-container {
-    width: 100%;
-    height: 1em;
-    background-color: #44475a;
+    position: relative;
+    height: 90vh;
+    width: 100%;    
     margin: 0 auto;
 }
 
@@ -40,27 +40,41 @@
     background-color: #ccc;
 }
 
-.cases-container form {
+.cases-container .search-country {
     display: flex;
-    width: 100%;
-    padding: 10px;
+    flex-direction: row;
+    align-items: top;
+    min-height: 100%;
+    max-height: 100%;
 }
 
-.cases-container form input {
-    margin-right: 10px;
-    width: 90%;
+.cases-container .search-country form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 20%;
+    border-right: solid #FFF;
+    border-width: 5px;
+    padding: 5px;
+}
+
+.cases-container .search-country form input {
+    width: 100%;
     height: 40px;
     color: #333;
+    margin: 10px 10px;
 }
 
 .countries-list {
-    position: absolute;
-    left: 10px;
-    top: 110px;
     background-color: #FFF;
+    overflow:hidden; 
+    overflow-y:scroll;
     list-style: none;
     border-radius: 10px;
-    width: 88%;
+    height: 100%;
+    max-height: 608px;
+    width: 100%;
 }
 
 .countries-list li {
@@ -75,16 +89,15 @@
     color: #FFF;
 }
 
-
-
-.cases-container .info-corona-virus {
+.cases-container .search-country .info-corona-virus {
     box-sizing: border-box;
+    width: 80%;
     padding: 50px;
     margin: 50px;
-    height: 300px;
     border-radius: 8px;
     box-shadow: 0 0 100px rgba(0, 0, 0, 1);;
     background-color: #6272a4;
+    font-size: 50px;
 
     display: flex;
     flex-direction: column;
@@ -92,17 +105,32 @@
     justify-content: space-between;
 }
 
+.cases-container .search-country .info-corona-virus h1 {
+    background-color: transparent;
+    font-size: 60px;
+    align-self: center;
+    color: #ff79c6;
+}
 
-.cases-container .info-corona-virus p + p {
+
+.cases-container .search-country .info-corona-virus p + p {
     font-size: 24px;
     color: #FFF;
     margin-top: 20px;
 }
 
-.cases-container .info-corona-virus p {
+.cases-container .search-country .info-corona-virus p {
     font-size: 24px;
     color: #FFF;
 }
+
+.cases-container .search-country .info-corona-virus span:nth-child(5) {
+    color: #ff5555;
+} 
+
+.cases-container .search-country .info-corona-virus span {
+    color: #50fa7b;
+} 
 
 
 

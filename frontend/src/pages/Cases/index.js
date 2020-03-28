@@ -13,11 +13,11 @@ export default function Cases() {
     const [confirmed, setConfirmed] = useState('')
     const [deaths, setDeaths] = useState('')
     const [recovered, setRecovered] = useState('')
-    const [display, setDisplay] = useState('none')
     const [currCountry, setCurrCountry] = useState('')
     const [loading, setLoading] = useState(false)
     const [listCountries, setListCountries] = useState([])
     const [fullListCountries, setfullListCountries] = useState([])
+    const [countryLabel, setCountryLabel] = useState('')
 
     async function getCountries() {
         if (loading) return
@@ -39,7 +39,7 @@ export default function Cases() {
 
     getCountries()
 
-    function handleDisplay() {
+    function handleDisplay(text) {
         console.log(currCountry)
         if (currCountry === '') {
             setListCountries(fullListCountries)
@@ -52,23 +52,20 @@ export default function Cases() {
 
         console.log(fullListCountries)
         setListCountries(newList)
-        setDisplay('block')
     }
 
-    async function handleSelectedCountry(e) {
+    async function handleSelectedCountry(e, code) {
         e.preventDefault()
 
         try {
             console.log(currCountry)
-            const response = await api.get(`/locations?country_code=${currCountry.toLowerCase()}`)
+            const response = await api.get(`/locations?country_code=${code.toLowerCase()}`)
             setConfirmed(response.data.latest.confirmed)
             setDeaths(response.data.latest.deaths)
             setRecovered(response.data.latest.recovered)
         } catch (err) {
             alert('Erro ao obter a informação do país. Tente novamente.')
         } 
-        
-        setDisplay('none')
     }
 
     return (
@@ -81,37 +78,43 @@ export default function Cases() {
                 </button>
             </header>
 
-            <form onSubmit={handleSelectedCountry}>
-                <input 
-                    placeholder='Digite o código do país'
-                    value={currCountry}
-                    onChange={e => {
-                        console.log(`e.target.value - ${e.target.value}`)
-                        setCurrCountry(e.target.value === '' ? '' : e.target.value)
-                        handleDisplay()
-                    }}
-                />
+            <div className='search-country'>
+                <form onSubmit={e => e.preventDefault()}>
+                    <input 
+                        placeholder='Digite o nome do país'
+                        value={currCountry}
+                        onChange={e => {
+                            setCurrCountry(e.target.value)
+                            handleDisplay()
+                        }}
+                    />
 
-                <ul style={{display: display}} className='countries-list'>
-                    {listCountries.map(item => (
-                        <li 
-                            onClick={(e) => {     
-                                setCurrCountry(item.code) 
-                                setDisplay('none')  
-                            }} 
-                            key={item.code}>
-                                {`${item.name} - ${item.code}`}
-                        </li>     
-                    ))}
-                </ul>
-                <button type='submit'>Confirmar</button>
-            </form>
+                    <ul className='countries-list'>
+                        {listCountries.map(item => (
+                            <li 
+                                onClick={(e) => {
+                                    setCountryLabel(item.name)     
+                                    handleSelectedCountry(e, item.code) 
+                                }} 
+                                key={item.code}>
+                                    {`${item.name} - ${item.code}`}
+                            </li>     
+                        ))}
+                    </ul>
+                </form>
 
-            <div className='info-corona-virus'>
-                <p>CASOS CONFIRMADOS: {confirmed}</p>
-                <p>NÚMERO DE MORTES: {deaths}</p>
-                <p>CASOS RECUPERADOS: {recovered}</p>
+                <div className='info-corona-virus'>
+                    <h1>{countryLabel}</h1>
+                    <p>CASOS CONFIRMADOS:</p>
+                    <span>{confirmed}</span>
+                    <p>NÚMERO DE MORTES: </p>
+                    <span>{deaths}</span>
+                    <p>CASOS RECUPERADOS: </p>
+                    <span>{recovered}</span>
+                </div>
             </div>
+
+        
         </div>               
     )
 }
