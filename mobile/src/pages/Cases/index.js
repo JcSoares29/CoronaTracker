@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { View, Text, FlatList, TextInput, TouchableOpacity } from 'react-native'
-
+import { SearchBar } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons'
 
 import styles from  './styles'
@@ -40,8 +40,11 @@ export default function Cases({ navigation }) {
     }
 
     function handleDisplay(text) {
+        setOpacity(100)
         if (text === '') {
             setListCountries(fullListCountries)
+            setCurrCountry('')
+            setOpacity(0)
             return
         }
 
@@ -50,6 +53,7 @@ export default function Cases({ navigation }) {
         })
 
         setListCountries(newList)
+        setCurrCountry(text)
     }
 
 
@@ -80,14 +84,9 @@ export default function Cases({ navigation }) {
         <View style={styles.container}>
             <Header 
                 navigation={navigation}
-                searchFunction={() => {
-                    if (opacity === 0) {
-                        setOpacity(100)
-                    } else {
-                        setOpacity(0)
-                    }                    
-                }}
-                enableSearch={'flex'}
+                searchFunction={handleDisplay}
+                searchBarValue={currCountry}
+                enableSearchBar={true}
             />
 
             <View style={styles.mainContainer}>
@@ -104,13 +103,6 @@ export default function Cases({ navigation }) {
                 </View>
 
                 <View style={[styles.search, {opacity: opacity} ] }>
-                    <TextInput 
-                        style={styles.country} 
-                        onChangeText={Text => {
-                            handleDisplay(Text)
-                        }}
-                    />
-
                     <FlatList
                         data={listCountries}
                         style={styles.countryList} 
@@ -127,26 +119,8 @@ export default function Cases({ navigation }) {
                             </TouchableOpacity>
                         )}
                     />     
-{/*                     <Dropdown 
-                        pickerStyle={{height: "70%"}}
-                        containerStyle={styles.country}
-                        dropdownPosition={0}
-                        onChangeText={async (text) => {
-                            setEnable(true)
-                            await handleCountry(text.split(' - ')[1])
-                            setEnable(false)
-                        }} 
-                        disabled={enable}
-                        rippleInsets={{top: 0, bottom: 0}}
-                        dropdownOffset={{ top: 0, left: 0 }}
-                        data={listCountries}
-                    /> */}
                 </View> 
-
-
-            </View>
-
-            
+            </View>            
         </View>
     )
 }

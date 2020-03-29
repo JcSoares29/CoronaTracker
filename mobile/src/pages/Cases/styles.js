@@ -39,19 +39,25 @@ export default StyleSheet.create({
         height: "100%",
         width: "100%",
         color: '#CCC',
-        backgroundColor: "#FFF",
+        backgroundColor: "#44475a",
         borderRadius: 5,
-        padding: 5
+        padding: 5,
+        marginTop: 5
     },
 
     itemStyle: {
         borderColor: "#000",
-        borderTopWidth: 0,
-        borderBottomWidth: 2
+        backgroundColor: '#f1f1f1',
+        height: 40,
+        borderWidth: 1,
+        borderRadius: 5,
+        margin: 5,
     },
 
     itemTextStyle: {
         fontSize: 24,
+        fontWeight: '600',
+        fontFamily: 'Roboto'
     },
 
     countryOverlay: {
