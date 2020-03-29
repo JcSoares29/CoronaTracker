@@ -1,13 +1,12 @@
 {
   "expo": {
-    "name": "Blank Template",
+    "name": "Corona Tracker",
     "slug": "mobile",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
-      "android",
-      "web"
+      "android"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
@@ -15,7 +14,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#282a36"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -24,7 +23,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.jcsoares.coronatracker",
+    },
+    "android": {
+      "package": "com.jcsoares.coronatracker"
     }
   }
 }
