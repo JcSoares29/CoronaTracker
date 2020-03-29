@@ -7,7 +7,7 @@ import { DrawerActions } from '@react-navigation/native'
 import { StyleSheet } from 'react-native'
 import Constants from 'expo-constants'
 
-export default function Header( {navigation} ) {
+export default function Header( {navigation, enableSearch='none', searchFunction} ) {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -15,10 +15,18 @@ export default function Header( {navigation} ) {
                     onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())} 
                     style={styles.menuButton}
                 >
-                    <Ionicons name='ios-menu' size={45} color="#FFF" backgroundColor="transparent"/>
+                    <Ionicons name='ios-menu' size={45} color="#FFF" backgroundColor="transparent"/>                    
                 </TouchableOpacity>
-                <Text style={styles.headerText}>Corona Tracker</Text>        
-        </View>
+                <Text style={styles.headerText}>Corona Tracker</Text>
+                <View style={[styles.searchContainer, {display: enableSearch}]}>
+                    <TouchableOpacity                        
+                        onPress={searchFunction} 
+                        style={styles.searchButton}
+                    >
+                        <Ionicons name='ios-search' size={45} color="#FFF" backgroundColor="transparent"/>                    
+                    </TouchableOpacity>
+                </View>                
+            </View>
         </View>
         
     )
@@ -51,4 +59,16 @@ const styles = StyleSheet.create({
     menuButton: {
         marginLeft: 15,
     },
+
+    searchContainer: {
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'flex-end',
+        justifyContent: 'flex-end'
+    },
+
+    searchButton: {
+        marginRight: 10,
+        justifyContent: 'flex-end',
+    }
 })

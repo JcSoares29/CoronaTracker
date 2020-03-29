@@ -10,45 +10,71 @@ export default StyleSheet.create({
         backgroundColor: "#44475a",
     }, 
 
+    mainContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        justifyContent: 'space-between'
+    },
+
     search: {
+        position: 'absolute',
+        left:     0,
+        top:      -6,
         width: "100%",
-        justifyContent: 'space-between',
-        padding: 15,
+        height: '100%',
     },
     
     country: {
+        fontSize: 24,
         height: 50,
         width: "100%",
         backgroundColor: "#FFF",
+        borderWidth: 2,
+        borderColor: '#000',
+        padding: 5
+    },
+
+    countryList: {
+        height: "100%",
+        width: "100%",
+        color: '#CCC',
+        backgroundColor: "#FFF",
         borderRadius: 5,
         padding: 5
+    },
+
+    itemStyle: {
+        borderColor: "#000",
+        borderTopWidth: 0,
+        borderBottomWidth: 2
+    },
+
+    itemTextStyle: {
+        fontSize: 24,
     },
 
     countryOverlay: {
         top: 50
     },
 
-    submit: {
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#ff5555",
-        height: 50,
-        borderRadius: 5,
-    },
-
-    submitText: {
-        color: "#FFF",
-        fontSize: 24,
-        fontWeight: "bold"
-    },
-
     coronaInfo: {
-        width: "95%",
+        flex: 1,
+        justifyContent: 'space-between',
+        width: "100%",
+        height: "100%",
         padding: 24,
         borderRadius: 8,
         borderColor: "#FFF", 
         borderWidth: 2,
         backgroundColor: "#6272a4"
+    },
+
+    titleStyle: {
+        fontSize: 40,
+        alignSelf: 'center',
+        justifyContent: 'center',
+        color: "#ff79c6",
     },
 
     coronaInfoText: {
