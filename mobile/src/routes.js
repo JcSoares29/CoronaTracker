@@ -49,7 +49,7 @@ export default function Routes() {
 
                     <AppDrawer.Screen 
                         name="Sobre" 
-                        options={{ drawerLabel: 'Home', drawerIcon: ({ }) => (
+                        options={{ drawerLabel: 'Sobre', drawerIcon: ({ }) => (
                             <MaterialIcons
                             name = 'help'
                             size={50}

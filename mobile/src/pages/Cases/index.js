@@ -24,15 +24,16 @@ export default function Cases({ navigation }) {
         if (loading) return
         setLoading(true)
 
-        const responseCountries = await apiCountryCodes.get('countries')
+        const responseCountries = await apiCountryCodes.get('/countries')
             
-        const lstCountries = responseCountries.data.result.map(item => {
+        const lstCountries = responseCountries.data.result.map((item, i) => {           
             return {value: `${item.name} - ${item.code}`}
-        }).sort()
+        }).sort((a, b) => {
+            return a.value > b.value
+        })
 
         setListCountries(lstCountries)
-
-        setLoading(false)
+        console.log('oi')
     }
 
 
@@ -59,7 +60,7 @@ export default function Cases({ navigation }) {
 
             <View style={styles.search}>
                 <Dropdown 
-                    pickerStyle={{borderBottomColor:'transparent',borderWidth: 0, height: "90%"}}
+                    pickerStyle={{height: "70%"}}
                     containerStyle={styles.country}
                     dropdownPosition={0}
                     onChangeText={async (text) => {
@@ -84,8 +85,6 @@ export default function Cases({ navigation }) {
                 <Text style={styles.coronaInfoText}>CASOS RECUPERADOS:</Text>
                 <Text style={[styles.coronaValue, { marginBottom: 0 }]}>{recovered}</Text>
             </View>
-
-
         </View>
     )
 }
